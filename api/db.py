@@ -3,10 +3,9 @@ from bson.objectid import ObjectId
 from bson.json_util import dumps, RELAXED_JSON_OPTIONS
 from datetime import datetime
 
-
 class MongoDb_Operations_Storage:
-	def __init__(self):
-		client = pymongo.MongoClient("mongodb+srv://flask_app:flask_app@aioperations.75psp.mongodb.net/flask_app?retryWrites=true&w=majority")
+	def __init__(self, connection_string):
+		client = pymongo.MongoClient(conection_string)
 		db = client.get_database('AIOperations')
 		self.operations_collection = pymongo.collection.Collection(db, 'Operations')
 
@@ -58,4 +57,5 @@ class MongoDb_Operations_Storage:
 		return list(self.operations_collection.aggregate(pipeline))
 
 
-mongoDb_Operations_Storage = MongoDb_Operations_Storage()
+conection_string = ""
+mongoDb_Operations_Storage = MongoDb_Operations_Storage(conection_string)
