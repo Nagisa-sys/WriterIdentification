@@ -1,0 +1,16 @@
+{
+	"Sift_Encoder_Vlad_Pca":{
+		"model_path" : "./parameters/31Aug.h5",
+		"shape_images" : 16,
+		"path_cluster_centers" : "./parameters/centers_clusters_Encoder_31Aug.npy",
+		"path_pca_model":"./parameters/pca_vlad_NN_31Aug.pkl",
+		"max_key_points" : 360
+	},
+	"Sift_Vlad_Pca":{
+		"path_pca_model":"./parameters/pca_vlad_31Aug.pkl",
+		"path_cluster_centers" : "./parameters/centers_clusters_VLAD_31Aug.npy"
+	},
+	"Sift_Bow":{
+		"path_cluster_centers" : "./parameters/centers_clusters_VLAD_31Aug.npy"
+	}
+}
