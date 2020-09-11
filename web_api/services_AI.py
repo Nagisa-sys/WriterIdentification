@@ -1,5 +1,5 @@
 from Ai_writer.writer_Identifier import Writer_identification
-from Ai_face.face_recogniser import *
+import Ai_face.face_recogniser as face_recogniser
 from db import mongoDb_Operations_Storage
 from json_shema import validateJsonOperation
 from flask import jsonify, Response, make_response
@@ -18,7 +18,7 @@ def identification_operation(content):
 	
 	id, results = options[content["operation_type"]](content)
 	response = {"id":id, "results":results}
-	return make_response(jsonify(response), 200)
+	return make_response(jsonify(response), 201)
 
 
 def extract_urls_labels(ref):
@@ -33,7 +33,7 @@ def identify_writer_operation(operation):
 	images_ref, writers = extract_urls_labels(operation["references"])
 	mysterious_writer = writer_identifiere.predict(operation["algo"], images_ref, writers, operation["target"])
 	operation_to_store = mongoDb_Operations_Storage.prepare_operation_data_json(operation, [mysterious_writer])
-	return str(mongoDb_Operations_Storage.save_operation(operation_to_store)), mysterious_writer
+	return str(mongoDb_Operations_Storage.save_operation(operation_to_store)), [mysterious_writer]
 
 
 def identify_face_image_operation(operation):

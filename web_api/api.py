@@ -1,14 +1,22 @@
 from flask import Flask, request, jsonify, Response, make_response
 from services_AI import identification_operation
 from services_history import getOperation, deleteOperation, claimFUpdateOperation, get_indicators
+import argparse
+
+parser = argparse.ArgumentParser(description='launch flask server')
+parser.add_argument('--public', required=False, help='use pyngrok server', action='store_true')
+args = parser.parse_args()
 
 app = Flask(__name__)
-app.config["DEBUG"] = True
+#app.config["DEBUG"] = True
 
+@app.route("/")
+def hello():
+    return "Hello World!"
 
 @app.route('/api/v0/operation', methods=['POST', 'GET', 'PUT', 'DELETE'])
-def identify_writer_face():
-	if request.method == 'POST':
+def ai_operation():
+	if request.method == 'POST': 
 		return identification_operation(request.json)
 	if request.method == 'GET':
 		if 'id' in request.args:
@@ -36,4 +44,9 @@ def indicators():
 
 
 if __name__ == '__main__':
-    app.run(port=8000)
+	port = 8000
+	if args.public:
+		from pyngrok import ngrok
+		url = ngrok.connect(port)
+		print(' * Tunnel URL:', url)
+	app.run(port=port)
