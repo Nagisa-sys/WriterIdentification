@@ -23,14 +23,6 @@ operationSchema = {
 		}
     }
 }
-updateClaimOperationSchema = {
-	"type": "object",
-	"properties" :{
-		"id": {"type": "string"},
-		"newValue": {"type": "boolean"},
-	}
-}
-
 
 def validateJsonOperation(jsonData):
 	try:
@@ -38,12 +30,5 @@ def validateJsonOperation(jsonData):
 	except jsonschema.exceptions.ValidationError as err:
 		return False
 	if jsonData["algo"] not in operation_types[jsonData["operation_type"]]:
-		return False
-	return True
-
-def validateJsonClaimOperation(jsonData):
-	try:
-		validate(instance=jsonData, schema=updateClaimOperationSchema)
-	except jsonschema.exceptions.ValidationError as err:
 		return False
 	return True
