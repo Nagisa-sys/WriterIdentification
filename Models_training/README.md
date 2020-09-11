@@ -23,7 +23,7 @@ The project support IAM, TrigraphSlant and ICDAR2013 datasets (use whatever you 
 ├
 ```
 
-## Configuration of tests cases
+## Configuration of test cases
 All parameters of the different models and paths to generated files are in the config_train file, for each new test add an entry to the corresponding entry, examples are already there (but with non usfull values).
 
 ## Details of the algorithms, references ...
