@@ -22,14 +22,19 @@ def ai_operation():
 		if 'id' in request.args:
 			return getOperation(str(request.args['id']))
 		else:
-			return Response({"error":"No id provided"}, mimetype="application/json", status=400)
+			return jsonify({"message":"No id provided"}), 400
 	if request.method == 'DELETE':
 		if 'id' in request.args:
 			return deleteOperation(str(request.args['id']))
 		else:
-			return Response({"error":"No id provided"}, mimetype="application/json", status=400)
+			return jsonify({"message":"No id provided"}), 400
 	if request.method == 'PUT':
-		return claimFUpdateOperation(request.json)
+		id = request.args.get("id")
+		if not id : return jsonify({"message":"No id provided"}), 400
+		new_value = request.args.get("new_value")
+		if not new_value : return jsonify({"message":"No new_value provided"}), 400
+		if new_value not in ["false","true"] : return jsonify({"message":"new_value must either false or true"}), 400
+		return claimFUpdateOperation(id, new_value)
 
 
 @app.route('/api/v0/operations', methods=['GET'])
@@ -38,9 +43,9 @@ def indicators():
 		try:
 			return get_indicators(request.args)
 		except ValueError as ex:
-			return make_response(jsonify({'error': str(ex)}), 400 )
+			return jsonify({'message': str(ex)}), 400 
 	else:
-		return Response({"error":"No start date provided"}, mimetype="application/json", status=400)
+		return jsonify({"message":"No start date provided"}), 400
 
 
 if __name__ == '__main__':

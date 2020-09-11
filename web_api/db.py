@@ -23,11 +23,15 @@ class MongoDb_Operations_Storage:
 
 	def delete_operation_id(self, id):
 		result = self.operations_collection.update_one({"_id":ObjectId(id), "deleated":False}, {"$set":{"deleated":True}}) 
-		return result.modified_count
+		if result.modified_count==1:
+			return id
+		return None
 
 	def claim_false_operation_id(self, id, value):
 		result = self.operations_collection.update_one({"_id":ObjectId(id), "deleated":False}, {"$set":{"claimedFalse":value}}) 
-		return result.modified_count
+		if result.modified_count==1 or result.matched_count==1:
+			return id
+		return None
 
 
 	def prepare_operation_data_json(self, operation_data, results):
