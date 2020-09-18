@@ -7,9 +7,3 @@ class PCA_reduction:
 	
 	def reduce_size(self, vector):
 		return self.pca_reload.transform([vector])[0]
-
-	@staticmethod
-	def create_new_pca_model(vectors, path_to_save="pca.pkl", n_components=300):
-		pca = PCA(n_components=n_components)
-		result = pca.fit(vectors)
-		pickle.dump(pca, open(path_to_save,"wb"))

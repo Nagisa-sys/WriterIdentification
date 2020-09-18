@@ -1,6 +1,5 @@
 import json
 import jsonschema
-from jsonschema import validate
 
 operation_types = {"writer" : ["SDVP", "SEVP", "SDB"], "faceInPicture": ["face_recognition"], "faceInVideo":["face_recognition"]}
 
@@ -26,7 +25,7 @@ operationSchema = {
 
 def validateJsonOperation(jsonData):
 	try:
-		validate(instance=jsonData, schema=operationSchema)
+		jsonschema.validate(instance=jsonData, schema=operationSchema)
 	except jsonschema.exceptions.ValidationError as err:
 		return False
 	if jsonData["algo"] not in operation_types[jsonData["operation_type"]]:
