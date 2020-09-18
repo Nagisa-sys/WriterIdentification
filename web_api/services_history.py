@@ -1,21 +1,28 @@
 from flask import jsonify, Response, make_response
 from db import mongoDb_Operations_Storage
 import datetime
+from bson.objectid import ObjectId
 
 
 def getOperation(id):
+	if not ObjectId.is_valid(id):
+		return prepare_result_message(id=id, successOp=False, key="message", value="None valid id")
 	response = mongoDb_Operations_Storage.get_operation_id(id)
 	if response:
 		return Response(response, mimetype="application/json", status=200)
 	return prepare_result_message(id=id, successOp=False, key="message", value="can't find this operation")
 
 def deleteOperation(id):
+	if not ObjectId.is_valid(id):
+		return prepare_result_message(id=id, successOp=False, key="message", value="None valid id")
 	id_deleted = mongoDb_Operations_Storage.delete_operation_id(id)
 	if id_deleted:
 		return prepare_result_message(id=id, successOp=True)
 	return prepare_result_message(id=id, successOp=False, key="message", value="can't find this operation")
 
 def claimFUpdateOperation(id, new_value):
+	if not ObjectId.is_valid(id):
+		return prepare_result_message(id=id, successOp=False, key="message", value="None valid id")
 	id_updated = mongoDb_Operations_Storage.claim_false_operation_id(id, new_value)
 	if id_updated:
 		return prepare_result_message(id, successOp=True, key="claimedFalse", value=new_value)
