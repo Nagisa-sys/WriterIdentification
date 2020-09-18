@@ -1,5 +1,6 @@
 import pickle
 from sklearn.decomposition import PCA
+import numpy as np
 
 class PCA_reduction:
 	def __init__(self, pca_path):
@@ -9,7 +10,23 @@ class PCA_reduction:
 		return self.pca_reload.transform([vector])[0]
 
 	@staticmethod
-	def create_new_pca_model(vectors, path_to_save="pca.pkl", n_components=300):
+	def create_new_pca_model(vectors, path_to_save, n_components):
+		from sklearn.preprocessing import MinMaxScaler
+		scaler = MinMaxScaler()
+		data_rescaled = scaler.fit_transform(vectors)
+
 		pca = PCA(n_components=n_components)
-		result = pca.fit(vectors)
+		result = pca.fit(data_rescaled)
+		
 		pickle.dump(pca, open(path_to_save,"wb"))
+
+	@staticmethod
+	def plot_variance_nbComponents(vectors, figsize=(15, 5)):
+		import matplotlib.pyplot as plt
+		pca = PCA().fit(vectors)
+		fig = plt.figure(figsize=figsize)
+		plt.plot(np.cumsum(pca.explained_variance_ratio_))
+		plt.xlabel('No. of principal components')
+		plt.ylabel('cumulative % variance retained')
+		plt.grid(True)
+		plt.title('Cumulative explained variance across the number of components ')

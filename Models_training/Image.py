@@ -5,7 +5,7 @@ import requests
 
 class Image :
 
-	def __init__(self, image_path, local_feature_extractor, image_filter=None, global_feature_extractor=None, url=False, verbose=False):
+	def __init__(self, image_path, local_feature_extractor, global_feature_extractor=None, image_filter=None, url=False, verbose=False):
 		self.name = os.path.splitext(os.path.basename(image_path))[0]
 		self.path = image_path
 		if url:
