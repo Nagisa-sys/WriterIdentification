@@ -31,5 +31,7 @@ class Clusterer:
 			print("tested one case from", len(test_values))
 		fig = plt.figure(figsize=figsize)
 		plt.plot(test_values, distorsions)
+		plt.xlabel('Number of clusters')
+		plt.ylabel('Within-cluster sum of squares')
 		plt.grid(True)
 		plt.title('Elbow curve')
