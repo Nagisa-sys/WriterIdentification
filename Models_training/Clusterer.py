@@ -21,16 +21,14 @@ class Clusterer:
 		return kmeans
 
 	@staticmethod
-	def elbow_method_kmeans(images, max_no_improvement, test_values = range(1, 500, 50),figsize=(15, 5), verbose=0):
+	def elbow_method_kmeans(images, max_no_improvement, test_values ,figsize=(15, 5), verbose=0):
 		from matplotlib import pyplot as plt
 
-		distorsions = []
-		for k in test_values:
-			kmeans = Clusterer.fit_new_trainig(images, nb_clusters=k, max_no_improvement=max_no_improvement, verbose=verbose)
-			distorsions.append(kmeans.inertia_)
-			print("tested one case from", len(test_values))
+		distorsions = [Clusterer.fit_new_trainig(images, nb_clusters=k, max_no_improvement=max_no_improvement, verbose=verbose).inertia_ for k in test_values]
+		
 		fig = plt.figure(figsize=figsize)
-		plt.plot(test_values, distorsions)
+		plt.plot(test_values, distorsions, marker='o')
+		plt.xticks(test_values)
 		plt.xlabel('Number of clusters')
 		plt.ylabel('Within-cluster sum of squares')
 		plt.grid(True)

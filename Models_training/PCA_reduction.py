@@ -10,22 +10,23 @@ class PCA_reduction:
 		return self.pca_reload.transform([vector])[0]
 
 	@staticmethod
-	def create_new_pca_model(vectors, path_to_save, n_components):
+	def create_new_pca_model(vectors, path_to_save, percentage_variance):
 		from sklearn.preprocessing import MinMaxScaler
 		scaler = MinMaxScaler()
 		data_rescaled = scaler.fit_transform(vectors)
 
-		pca = PCA(n_components=n_components)
+		pca = PCA(n_components=percentage_variance)
 		result = pca.fit(data_rescaled)
 		
 		pickle.dump(pca, open(path_to_save,"wb"))
 
 	@staticmethod
-	def plot_variance_nbComponents(vectors, figsize=(15, 5)):
+	def plot_variance_nbComponents(vectors, percentage_variance, figsize=(15, 5)):
 		import matplotlib.pyplot as plt
 		pca = PCA().fit(vectors)
 		fig = plt.figure(figsize=figsize)
-		plt.plot(np.cumsum(pca.explained_variance_ratio_))
+		plt.plot(np.cumsum(pca.explained_variance_ratio_), marker='o')
+		plt.axhline(y=percentage_variance, color="red")
 		plt.xlabel('No. of principal components')
 		plt.ylabel('cumulative % variance retained')
 		plt.grid(True)
