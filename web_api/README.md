@@ -101,7 +101,48 @@ python 3.8 is used for the devellopement, about te packages there is a requireme
     "id": "5f64fc6e3031b39ab15a1be4"
   }
   ```
-  ### and others ...
+  ### Claim that the results of an operation were false:
+  #### Request
+  `PUT /api/v0/operation/`
+
+    curl --location --request PUT 'http://localhost:8080/api/v0/operation?id=5f64fc6e3031b39ab15a1be4&new_value=true'
+
+  #### Response
+  ```json
+    {
+      "claimedFalse":"true",
+      "id":"5f64fc6e3031b39ab15a1be4"
+    }
+  ```
+  ### Delete rocord of an operation:
+  #### Request
+  `DELETE /api/v0/operation/`
+
+    curl --location --request DELETE 'http://localhost:8080/api/v0/operation?id=5f64fc6e3031b39ab15a1be4'
+
+  #### Response
+  ```json
+    {
+      "id":"5f64fc6e3031b39ab15a1be4",
+      "message":"operation deleted"
+    }
+  ```
+  ### History of past operations:
+  #### Request
+  `GET /api/v0/operations/`
+
+    curl --location --request GET 'http://localhost:8080/api/v0/operations?start=2020-09-01&end=2020-09-19'
+
+  #### Response
+  ```json
+    [
+      {"date":"2020-09-11","totalClaimed":0,"totalSum":11},
+      {"date":"2020-09-12","totalClaimed":0,"totalSum":2},
+      {"date":"2020-09-13","totalClaimed":0,"totalSum":1},
+      {"date":"2020-09-10","totalClaimed":1,"totalSum":13},
+      {"date":"2020-09-18","totalClaimed":1,"totalSum":7}
+    ]
+  ```
   
 ## Details of the algorithms, references ...
 Coming soon ...

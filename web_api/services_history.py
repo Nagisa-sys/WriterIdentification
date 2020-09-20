@@ -17,7 +17,7 @@ def deleteOperation(id):
 		return prepare_result_message(id=id, successOp=False, key="message", value="None valid id")
 	id_deleted = mongoDb_Operations_Storage.delete_operation_id(id)
 	if id_deleted:
-		return prepare_result_message(id=id, successOp=True)
+		return prepare_result_message(id=id, successOp=True, key="message", value="operation deleted")
 	return prepare_result_message(id=id, successOp=False, key="message", value="can't find this operation")
 
 def claimFUpdateOperation(id, new_value):
