@@ -2,6 +2,7 @@ import os, cv2
 from itertools import islice
 import numpy as np
 
+
 def Load_dataset_IAM(IAM_base_path):
   writers, images = [], []
   forms_file_path = IAM_base_path+"/forms_IAM.txt"
@@ -125,3 +126,14 @@ def train_test_TrigraphSlant(WORK_DIR, size_train, size_test, slant=False):
   I_test_names = ["TrigraphSlant_"+os.path.splitext(os.path.basename(path))[0] for path in I_test_p]
 
   return list(zip(W_train, I_train_names, I_train)), list(zip(W_test, I_test_names, I_test))
+
+
+def load_dataset(dataset, path, size_train, size_test, parametre=None):
+  if dataset=="IAM":
+    return train_test_IAM(path, size_train, size_test)
+  if dataset=="TrigraphSlant":
+    return train_test_TrigraphSlant(path, size_train, size_test, parametre)
+  if dataset=="ICDAR":
+    if parametre==None: parametre='en'
+    return train_test_ICDAR2013(path, size_train, size_test, parametre)
+  return None
