@@ -4,8 +4,8 @@ from Norms import Norm
 
 
 class VLAD :
-	def __init__ (self, clusters_centers, pca_instance=None):
-		self.clusters_centers = clusters_centers
+	def __init__ (self, clusters_centers_path, pca_instance=None):
+		self.clusters_centers = np.load(clusters_centers_path)
 		self.pca_instance = pca_instance
 
 	def global_feature_vector (self, descriptors):
@@ -31,8 +31,8 @@ class VLAD :
 
 
 class BOW :
-	def __init__ (self, clusters_centers):
-		self.clusters_centers = clusters_centers
+	def __init__ (self, clusters_centers_path):
+		self.clusters_centers = np.load(clusters_centers_path)
 	
 	def global_feature_vector (self, descriptors):
 		histogram = np.zeros(len(self.clusters_centers))

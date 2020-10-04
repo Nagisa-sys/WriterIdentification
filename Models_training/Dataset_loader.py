@@ -54,7 +54,7 @@ def train_test_IAM(WORK_DIR, size_train, size_test):
   def image_preprocessing(image_path):
     return cv2.cvtColor(cv2.imread(image_path),cv2.COLOR_BGR2GRAY)[700:2700,40:-40]
     
-  writers, images = Load_dataset_IAM(WORK_DIR)
+  writers, images = Load_dataset_IAM(WORK_DIR+"/IAM")
   writers = np.array(writers)
   unique_writers = np.unique(writers)
   W_test, I_test_p, W_train, I_train_p = [], [], [], []
@@ -88,12 +88,12 @@ def train_test_ICDAR2013(WORK_DIR, size_train, size_test, language='en'):
   def image_preprocessing(image_path):
     return cv2.cvtColor(cv2.imread(image_path), cv2.COLOR_BGR2GRAY)
 
-  W_train, I_train_p = Load_dataset_ICDAR2013(WORK_DIR+"/train", language)
+  W_train, I_train_p = Load_dataset_ICDAR2013(WORK_DIR+"/ICDAR2013/train", language)
   print("Train set : from",len(W_train),end="")
   W_train, I_train_p = W_train[: min(size_train,len(W_train))], I_train_p[: min(size_train,len(I_train_p))]
   print(",", len(W_train), "fetched.")
 
-  W_test, I_test_p = Load_dataset_ICDAR2013(WORK_DIR+"/test", language)
+  W_test, I_test_p = Load_dataset_ICDAR2013(WORK_DIR+"/ICDAR2013/test", language)
   print("Test set : from",len(W_test),end="")
   W_test, I_test_p = W_test[: min(size_test,len(W_test))], I_test_p[: min(size_test,len(I_test_p))]
   print(",", len(W_test), "fetched.")
@@ -110,12 +110,12 @@ def train_test_TrigraphSlant(WORK_DIR, size_train, size_test, slant=False):
   def image_preprocessing(image_path):
     return cv2.cvtColor(cv2.imread(image_path),cv2.COLOR_BGR2GRAY)[600:,:]
 
-  W_train, I_train_p = Load_dataset_TrigraphSlant(WORK_DIR+"/train", slant)
+  W_train, I_train_p = Load_dataset_TrigraphSlant(WORK_DIR+"/TrigraphSlant/train", slant)
   print("Train set : from",len(W_train),end="")
   W_train, I_train_p = W_train[:min(size_train,len(W_train))], I_train_p[:min(size_train,len(I_train_p))]
   print(",", len(W_train), "fetched.")
 
-  W_test, I_test_p = Load_dataset_TrigraphSlant(WORK_DIR+"/test", slant)
+  W_test, I_test_p = Load_dataset_TrigraphSlant(WORK_DIR+"/TrigraphSlant/test", slant)
   print("Test set : from",len(W_test),end="")
   W_test, I_test_p = W_test[:min(size_test,len(W_test))], I_test_p[:min(size_test,len(I_test_p))]
   print(",", len(W_test), "fetched.")  

@@ -3,8 +3,8 @@ import numpy as np
 import cv2, pickle, math
 
 class Encoder_NN:
-	def __init__(self, shape_images, max_kp_treat_return, verbose=True):
-		self.sift_feature_extractor=cv2.xfeatures2d.SIFT_create()
+	def __init__(self, shape_images, max_kp_treat_return, local_features_detector, verbose=True):
+		self.local_features_detector = local_features_detector
 		self.shape_images = shape_images
 		self.max_kp_treat_return = max_kp_treat_return
 		self.verbose = verbose
@@ -18,7 +18,7 @@ class Encoder_NN:
 		kps_cleaned = list()
 		kps_cleaned_chosen = list()
 		descriptors_cleaned = list()
-		key_points = self.sift_feature_extractor.detect(image,None)
+		key_points = self.local_features_detector.detect(image,None)
 		height = int(self.shape_images[0]/2)
 
 		for key_point in key_points:
@@ -41,7 +41,7 @@ class Encoder_NN:
 		key_points_distance = np.array(sorted(kps_cleaned_chosen, key=lambda x: distance_center(x)))
 		i = 0
 		if self.verbose : 
-		    print("treated ", self.max_kp_treat_return, "/", len(key_points_distance), " key points for this image !", sep = '')
+		    print("treated ", self.max_kp_treat_return, "/", len(key_points_distance), " key points !", sep = '')
 		while True:
 			if i+1 >= len(key_points_distance):
 				break

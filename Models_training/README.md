@@ -14,7 +14,6 @@ The notebooks can be run by jupyter notebook with python3 kernel :
 The project support IAM, TrigraphSlant and ICDAR2013 datasets (use whatever you want details in the Dataset_loader module):
 ```
 .
-├── config_train.json
 ├── dataset
 │   ├── IAM
 │   └── ICDAR2013

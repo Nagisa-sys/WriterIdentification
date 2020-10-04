@@ -5,8 +5,7 @@ from multiprocessing import Pool
 from itertools import repeat
 
 
-def accuracy(X_test, Y_test, global_feature_extractor, distance_metric):
-	#[image.set_global_descriptor(global_feature_extractor) for image in X_test if not image.has_global_descriptor()]
+def accuracy(X_test, Y_test, distance_metric):
 	incorrect, correct = 0, 0
 	for i in range(len(X_test)):
 		distances = list()
@@ -20,7 +19,7 @@ def accuracy(X_test, Y_test, global_feature_extractor, distance_metric):
 		else : incorrect += 1
 	return correct/(correct+incorrect)
 
-def accuracy_vp_tree(X_test, Y_test, global_feature_extractor, distance_metric):
+def accuracy_vp_tree(X_test, Y_test, distance_metric):
 	def distance_for_tree(elementA, elementB):
 		return distance_metric(elementA.global_descriptor, elementB.global_descriptor)
 
@@ -46,7 +45,7 @@ def tree_search(global_descriptor, index, tree, authors, images_names, past_resu
 	return 0
 
 
-def accuracy_optimised(X_test, Y_test, global_feature_extractor, distance_metric):
+def accuracy_optimised(X_test, Y_test, distance_metric):
 	[setattr(X_test_e, "author", y_test_e)  for (X_test_e, y_test_e) in zip(X_test, Y_test)]
 
 	distances = []
