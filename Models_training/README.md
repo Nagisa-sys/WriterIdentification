@@ -1,5 +1,4 @@
 # Training the writer identification models
-Three jupyter notebooks, one for each path :
 
 ![All paths of AI model](./archi.png)
 
