@@ -21,7 +21,7 @@ Rest api that can :
 - For face recognition, the library : https://github.com/ageitgey/face_recognition is used (thanks for them)
 
 ## What to install
-python 3.8 is used for the devellopement, about te packages there is a requirement file (that I will update later with the correct entries because I f*cked up my virtual envirement).
+I used python 3.8 with the packages on the requirements file.
 
 ## Examples
   ### Who is in the picture ?
